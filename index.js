@@ -15,7 +15,7 @@ bot.on('ready', () => {
 });
 
 bot.on('message', msg => {
-    if (msg.content[0] == 'd' && msg.content[1] == '!') {
+    if (msg.content[0] == '!') {
         let args = msg.content.substring(PREFIX.length).split(" ");
         switch (args[0]) {
             case 'help':
