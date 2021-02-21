@@ -10,7 +10,7 @@ bot.on('ready', () => {
     console.log('This bot is online!');
     bot.user.setActivity('Hoping to grow into some nice bread someday...\nType \"!help\" for commands!');
     setInterval(() => {
-        bot.user.setActivity('Hoping to grow into some nice bread someday...\nType \"d!help\" for commands!');
+        bot.user.setActivity('Hoping to grow into some nice bread someday...\nType \"!help\" for commands!');
     }, 5000000);
 });
 
