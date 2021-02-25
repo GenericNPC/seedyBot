@@ -1,7 +1,7 @@
 //seedyBot
 const Discord = require('discord.js');
 const bot = new Discord.Client();
-i = 0;
+const fs = require('fs');
 
 const token = "";
 const PREFIX = '!';
@@ -19,7 +19,43 @@ bot.on('message', msg => {
         let args = msg.content.substring(PREFIX.length).split(" ");
         switch (args[0]) {
             case 'help':
-                msg.reply("Sorry, I don't do anything yet, but my creator will patch something in soon!");
+                msg.reply("!quote - Creates and saves a quote, or shows a saved quote!\n     Type a phrase after the \"!quote\" command to save it!\n     Type a number after the \"!quote\" command to show a saved quote!");
+                break;
+            case 'quote':
+                if (!isNaN(args[1])){
+                    //Print a quote
+                    if (fs.existsSync(args[1] + ".txt")){
+                        msg.reply(fs.readFileSync(args[1] + ".txt", 'utf8'));
+                    }
+                    else {
+                        msg.reply("Sorry, this quote doesn't exist!");
+                    }
+                } else{
+                    //Make a quote
+                    i = 0;
+                    test = 1;
+                    while (test == 1){
+                        if (fs.existsSync(i + ".txt")){
+                            i = i + 1;
+                        }
+                        else {
+                            test = 0;
+                        }
+                    }
+                    fileNum = i;
+                    fileName = fileNum + ".txt";
+                    fileText = ""
+                    //Take all "arguments" left in the command string and convert them to text for the file.
+                    for (chk = 1; args[chk] != undefined; chk++){
+                        fileText = fileText + args[chk] + " ";
+                    }
+                    if(fileText.length < 6){
+                        msg.reply("Sorry, message too short!");
+                    } else{
+                        msg.reply("Saved as quote #" + i);
+                        fs.writeFileSync(fileName, fileText);
+                    }
+                }               
         }
     }
 });
